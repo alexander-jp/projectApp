@@ -28,5 +28,9 @@ jobs:
       - name: Build app
         run: |
           ./gradlew assemble
-          git tag a v1.0.0 -m "Version 1.0.0"
-          git push origin v1.0.0
+          versionCode=$(grep 'versionCode' app/build.gradle | grep -Eo '[0-9]+')
+          versionName=$(grep 'versionName' app/build.gradle | grep -Eo '".*"' | sed 's/"//g')
+          echo "Version Code: $versionCode"
+          echo "Version Name: $versionName"
+          git tag -a v$versionName -m "Versión $versionName"
+          git push origin v$versionName
