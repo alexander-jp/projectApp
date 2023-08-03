@@ -30,6 +30,8 @@ jobs:
           git config --global user.email "alexander.juarez.prez21@gmail.com"
           git config --global user.name "Alexander Juarez"
       - name: Build app
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./gradlew assemble
           versionCode=$(grep 'versionCode' app/build.gradle | grep -Eo '[0-9]+')
