@@ -38,4 +38,4 @@ jobs:
           echo "Version Name: $versionName"
           git tag -a v$versionName -m "Versión $versionName"
           git push origin v$versionName
-          git push --tags https://$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@github.com/alexander-jp/projectApp.git
+          git push --tags https://$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@github.com/alexander-jp/projectApp.git
