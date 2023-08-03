@@ -26,4 +26,7 @@ jobs:
       - name: Solicitar permiso para gradle
         run: chmod +x gradlew
       - name: Build app
-        run: ./gradlew assemble
+        run: |
+          ./gradlew assemble
+          git tag a v1.0.0 -m "Version 1.0.0"
+          git push origin v1.0.0
