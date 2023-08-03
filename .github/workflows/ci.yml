@@ -25,10 +25,7 @@ jobs:
         uses: gradle/gradle-build-action@v2
       - name: Solicitar permiso para gradle
         run: chmod +x gradlew
-      - name: Set Git Config
-        run: |
-          git config --global user.email "alexander.juarez.prez21@gmail.com"
-          git config --global user.name "Alexander Juarez"
+
       - name: Build app
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
