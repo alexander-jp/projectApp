@@ -31,9 +31,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./gradlew assemble
-          versionCode=$(grep 'versionCode' app/build.gradle | grep -Eo '[0-9]+')
-          versionName=$(grep 'versionName' app/build.gradle | grep -Eo '".*"' | sed 's/"//g')
-          echo "Version Code: $versionCode"
-          echo "Version Name: $versionName"
-          git tag -a v$versionName -m "Versión $versionName"
-          git push origin v$versionName
+      - name: List artifacts APK
+        run: ls -la
+      - uses: actions/upload-artifact@v3
+        with: 
+          name: app-debug.apk
+          path: ./app/build/outputs/apk/debug
