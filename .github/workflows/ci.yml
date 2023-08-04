@@ -23,6 +23,7 @@ jobs:
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
+        
       - name: Solicitar permiso para gradle
         run: chmod +x gradlew
 
@@ -31,8 +32,17 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           ./gradlew assemble
+          versionCode=$(grep 'versionCode' app/build.gradle | grep -Eo '[0-9]+')
+          baseName=$(grep 'baseName' app/build.gradle | grep -Eo '[A-Za-z]+')
+          versionName=$(grep 'versionName' app/build.gradle | grep -Eo '".*"' | sed 's/"//g')
+          echo "Version Code: $versionCode"
+          echo "Version Name: $versionName"
+          echo "Base Name: $baseName
+        id: Version
+        
       - name: List artifacts APK
         run: ls -la
+    
       - uses: actions/upload-artifact@v3
         with: 
           name: app-debug.apk
