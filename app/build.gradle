@@ -30,7 +30,7 @@ android {
     android.applicationVariants.all { variant ->
         variant.outputs.all {
             outputFileName = "${archivesBaseName}-${variant.baseName}-${variant.versionCode}-${variant.versionName}.apk"
-            println outputFileName
+            //println outputFileName
         }
     }
     compileOptions {
