@@ -8,6 +8,7 @@ android {
     compileSdk 33
 
     defaultConfig {
+        project.ext.set("archivesBaseName","projectApp")
         applicationId "com.mundet.projectapp"
         minSdk 23
         targetSdk 33
@@ -24,6 +25,12 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "${archivesBaseName}-${variant.baseName}-${variant.versionCode}-${variant.versionName}.apk"
+            println outputFileName
         }
     }
     compileOptions {
