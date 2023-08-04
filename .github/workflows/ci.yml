@@ -37,7 +37,7 @@ jobs:
           versionName=$(grep 'versionName' app/build.gradle | grep -Eo '".*"' | sed 's/"//g')
           echo "Version Code: $versionCode"
           echo "Version Name: $versionName"
-          echo "Base Name: $baseName
+          echo "Base Name: $baseName"
         id: Version
         
       - name: List artifacts APK
