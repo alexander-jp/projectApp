@@ -33,13 +33,23 @@ jobs:
         run: |
           ./gradlew assemble
           versionCode=$(grep 'versionCode' app/build.gradle | grep -Eo '[0-9]+')
-          baseName=$(grep 'baseName' app/build.gradle | grep -Eo '[A-Za-z]+')
+          baseName=$(grep 'outputFileName' app/build.gradle | grep -Eo '[A-Za-z]+')
           versionName=$(grep 'versionName' app/build.gradle | grep -Eo '".*"' | sed 's/"//g')
           echo "Version Code: $versionCode"
           echo "Version Name: $versionName"
           echo "Base Name: $baseName"
         id: Version
-        
+      - name: Generate JSON File
+        run: echo '{"outputFileName":"output-metadata.json"}' > output.json
+      - name: Display JSON Content
+        run: cat output.json
+      - name: Read JSON Content and Use Value
+        id: read_json
+        run: |
+          json_content=$(cat output.json)
+          outputFileName=$(echo "$json_content" | jq -r '.outputFileName')
+          echo "outputFileName: $outputFileName"
+        shell: bash
       - name: List artifacts APK
         run: ls -la
     
