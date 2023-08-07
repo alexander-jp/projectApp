@@ -39,7 +39,17 @@ jobs:
           echo "Version Name: $versionName"
           echo "Base Name: $baseName"
         id: Version
-        
+      - name: Generate JSON File
+        run: echo '{"outputFileName":"output-metadata.json"}' > output.json
+      - name: Display JSON Content
+        run: cat output.json
+      - name: Read JSON Content and Use Value
+        id: read_json
+        run: |
+          json_content=$(cat output.json)
+          outputFileName=$(echo "$json_content" | jq -r '.outputFileName')
+          echo "outputFileName: $outputFileName"
+        shell: bash
       - name: List artifacts APK
         run: ls -la
     
