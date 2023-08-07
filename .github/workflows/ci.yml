@@ -28,8 +28,6 @@ jobs:
         run: chmod +x gradlew
 
       - name: Build app
-        env:
-          OUTPUT_FILENAME: ${{ steps.build.outputs.outputFileName }}
         run: |
           ./gradlew assemble
           versionCode=$(grep 'versionCode' app/build.gradle | grep -Eo '[0-9]+')
@@ -38,6 +36,8 @@ jobs:
           echo "Version Code: $versionCode"
           echo "Version Name: $versionName"
           echo "Base Name: $baseName"
+        env:
+          OUTPUT_FILENAME: ${{ steps.build.outputs.outputFileName }}
         id: Version
       - name: Display Output File Name
         run: |
