@@ -50,6 +50,10 @@ jobs:
           outputFileName=$(echo "$json_content" | jq -r '.outputFileName')
           echo "outputFileName: $outputFileName"
         shell: bash
+      - name: Set Output File Name in GitHub Actions
+        run: echo "OUTPUT_FILENAME=${{ steps.build.outputs.outputFileName }}" >> $GITHUB_ENV
+        env:
+          OUTPUT_FILENAME: ${{ steps.build.outputs.outputFileName }}
       - name: List artifacts APK
         run: ls -la
     
