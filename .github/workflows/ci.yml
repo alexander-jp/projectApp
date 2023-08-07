@@ -29,7 +29,7 @@ jobs:
 
       - name: Build app
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          OUTPUT_FILENAME: ${{ steps.build.outputs.outputFileName }}
         run: |
           ./gradlew assemble
           versionCode=$(grep 'versionCode' app/build.gradle | grep -Eo '[0-9]+')
@@ -39,21 +39,6 @@ jobs:
           echo "Version Name: $versionName"
           echo "Base Name: $baseName"
         id: Version
-      - name: Generate JSON File
-        run: echo '{"outputFileName":"output-metadata.json"}' > output.json
-      - name: Display JSON Content
-        run: cat output.json
-      - name: Read JSON Content and Use Value
-        id: read_json
-        run: |
-          json_content=$(cat output.json)
-          outputFileName=$(echo "$json_content" | jq -r '.outputFileName')
-          echo "outputFileName: $outputFileName"
-        shell: bash
-      - name: Set Output File Name in GitHub Actions
-        run: echo "OUTPUT_FILENAME=${{ steps.build.outputs.outputFileName }}" >> $GITHUB_ENV
-        env:
-          OUTPUT_FILENAME: ${{ steps.build.outputs.outputFileName }}
       - name: Display Output File Name
         run: |
           echo "Output File Name: $OUTPUT_FILENAME"
