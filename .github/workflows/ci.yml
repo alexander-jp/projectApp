@@ -33,8 +33,8 @@ jobs:
         run: |
           ./gradlew assemble
           versionCode=$(grep 'versionCode' app/build.gradle | grep -Eo '[0-9]+')
-          baseName=$(grep 'outputFileName' app/build.gradle | grep -Eo '[A-Za-z]+')
           versionName=$(grep 'versionName' app/build.gradle | grep -Eo '".*"' | sed 's/"//g')
+          baseName=$(grep 'outputFileName' app/build.gradle | grep -Eo '[A-Za-z]+')
           echo "Version Code: $versionCode"
           echo "Version Name: $versionName"
           echo "Base Name: $baseName"
