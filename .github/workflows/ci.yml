@@ -54,6 +54,8 @@ jobs:
         run: echo "OUTPUT_FILENAME=${{ steps.build.outputs.outputFileName }}" >> $GITHUB_ENV
         env:
           OUTPUT_FILENAME: ${{ steps.build.outputs.outputFileName }}
+      - name: Display Output File Name
+        run: echo "Output File Name: $OUTPUT_FILENAME"
       - name: List artifacts APK
         run: ls -la
     
