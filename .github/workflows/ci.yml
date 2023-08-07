@@ -36,13 +36,12 @@ jobs:
           echo "Version Code: $versionCode"
           echo "Version Name: $versionName"
           echo "Base Name: $baseName"
+        id: Version
         env:
           OUTPUT_FILENAME: ${{ steps.build.outputs.outputFileName }}
-        id: Version
       - name: Display Output File Name
         run: |
           echo "Output File Name: $OUTPUT_FILENAME"
-        shell: bash
       - name: List artifacts APK
         run: ls -la
     
