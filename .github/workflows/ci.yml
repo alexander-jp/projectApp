@@ -33,12 +33,20 @@ jobs:
         id: Version
         env:
           OUTPUT_FILENAME: ${{ steps.build.outputs.outputFileName }}
-      - name: Releasing using Hub
-        uses: ShaunLWM/action-release-debugapk@master
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
         env: 
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
-          APP_FOLDER: app
-          RELEASE_TITLE: New Build App
+        with: 
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          body: |
+            Changes in this Release
+            - First Change
+            - Second Change
+          draft: false
+          prerelease: false
       - name: Display Output File Name
         run: |
           echo "OutputFileName: $OUTPUT_FILENAME"
