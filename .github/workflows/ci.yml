@@ -29,7 +29,7 @@ jobs:
 
       - name: Build app
         run: |
-          ./gradlew assemble
+          ./gradlew assembleDebug
         id: Version
         env:
           OUTPUT_FILENAME: ${{ steps.build.outputs.outputFileName }}
