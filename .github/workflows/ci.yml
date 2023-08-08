@@ -36,6 +36,7 @@ jobs:
       - name: Display Output File Name
         run: |
           echo "OutputFileName: $OUTPUT_FILENAME"
+        shell: bash
       - name: List artifacts APK
         run: ls -la
     
