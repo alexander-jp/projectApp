@@ -38,7 +38,7 @@ jobs:
         env: 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           APP_FOLDER: app
-          RELEASE_TITLE: New Build
+          RELEASE_TITLE: New Build App
       - name: Display Output File Name
         run: |
           echo "OutputFileName: $OUTPUT_FILENAME"
