@@ -29,32 +29,25 @@ jobs:
       - name: Solicitar permiso para gradle
         run: chmod +x gradlew
 
-      - name: Build app
-        run: |
-          ./gradlew assembleDebug
-        id: Version
+      - uses: r0adkll/sign-android-release@v1
+        name: Sign app APK
+        # ID used to access action output
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
         env:
-          OUTPUT_FILENAME: ${{ steps.build.outputs.outputFileName }}
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env: 
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with: 
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          body: |
-            Changes in this Release
-            - First Change
-            - Second Change
-          draft: false
-          prerelease: false
-      - name: Display Output File Name
-        run: |
-          echo "OutputFileName: $OUTPUT_FILENAME"
-        shell: bash
-      - name: List artifacts APK
-        run: ls -la
+          # override default build-tools version (29.0.3) -- optional
+          BUILD_TOOLS_VERSION: "30.0.2"
+
+  # Example use of `signedReleaseFile` output -- not needed
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Signed app bundle
+          path: ${{steps.sign_app.outputs.signedReleaseFile}}
     
       - uses: actions/upload-artifact@v3
         with: 
