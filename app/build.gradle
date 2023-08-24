@@ -31,7 +31,7 @@ android {
         release {
             storeFile file('debug-keystore.jks') // Ruta a tu Keystore
             storePassword 'Bogota18.' // Contraseña del Keystore
-            keyAlias 'mi-app-alias' // Alias de la clave
+            keyAlias 'movieapp' // Alias de la clave
             keyPassword 'Bogota18.' // Contraseña de la clave
         }
     }
@@ -95,6 +95,7 @@ android {
             excludes += '/META-INF/{AL2.0,LGPL2.1}'
         }
     }
+    buildToolsVersion '31.0.0'
 }
 
 dependencies {
