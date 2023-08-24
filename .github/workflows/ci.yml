@@ -28,6 +28,12 @@ jobs:
         
       - name: Solicitar permiso para gradle
         run: chmod +x gradlew
+      - name: Build app
+        run: |
+          ./gradlew assembleDebug
+        id: Version
+      - name: obtener path
+        run: echo $PWD/apk/outputs/debug/
 
       - uses: r0adkll/sign-android-release@v1
         name: Sign app APK
