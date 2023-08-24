@@ -33,7 +33,7 @@ jobs:
           ./gradlew assembleDebug
         id: Version
       - name: obtener path
-        run: ls -a ./app/build
+        run: ls -a ./app/build/outputs/apk
 
       - uses: r0adkll/sign-android-release@v1
         name: Sign app APK
