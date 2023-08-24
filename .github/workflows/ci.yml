@@ -27,7 +27,7 @@ jobs:
         with:
           python-version: 3.10
       - name: Add apksigner to PATH
-        run: echo "export PATH=$PATH:<ruta_al_directorio_que_contiene_apksigner>" >> $GITHUB_ENV
+        run: echo "export PATH=$PATH:$(which apksigner)" >> $GITHUB_ENV
       - name: List apksigner version
         run: apksigner --version
 
