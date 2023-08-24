@@ -4,6 +4,8 @@ name: Android CI
 on:
   push:
     branches: [ "ci/cd"]
+    tags:
+      - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
 
   pull_request:
     branches: [ "ci/cd"]
@@ -26,19 +28,30 @@ jobs:
         
       - name: Solicitar permiso para gradle
         run: chmod +x gradlew
-
       - name: Build app
         run: |
-          ./gradlew assemble
+          ./gradlew assembleDebug
         id: Version
-        env:
-          OUTPUT_FILENAME: ${{ steps.build.outputs.outputFileName }}
-      - name: Display Output File Name
-        run: |
-          echo "OutputFileName: $OUTPUT_FILENAME"
-        shell: bash
-      - name: List artifacts APK
-        run: ls -la
+      - name: obtener path
+        run: ls -a ./app/build/outputs/apk/demo/debug/
+
+      - uses: r0adkll/sign-android-release@v1
+        name: Sign app APK
+        # ID used to access action outputs
+        id: sign_app
+        with:
+          releaseDirectory: ./app/build/outputs/apk/demo/debug/
+          signingKeyBase64: ${{ secrets.SIGNING_KEY }}
+          alias: ${{ secrets.ALIAS }}
+          keyStorePassword: ${{ secrets.KEY_STORE_PASSWORD }}
+          keyPassword: ${{ secrets.KEY_PASSWORD }}
+        
+
+  # Example use of `signedReleaseFile` output -- not needed
+      - uses: actions/upload-artifact@v2
+        with:
+          name: Signed app bundle
+          path: ${{steps.sign_app.outputs.signedReleaseFile}}
     
       - uses: actions/upload-artifact@v3
         with: 
