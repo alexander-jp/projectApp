@@ -22,6 +22,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
           cache: gradle
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.10
+      - name: Add apksigner to PATH
+        run: echo "export PATH=$PATH:<ruta_al_directorio_que_contiene_apksigner>" >> $GITHUB_ENV
+      - name: List apksigner version
+        run: apksigner --version
 
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
