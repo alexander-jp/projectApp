@@ -37,7 +37,7 @@ jobs:
 
       - uses: r0adkll/sign-android-release@v1
         name: Sign app APK
-        # ID used to access action output
+        # ID used to access action outputs
         id: sign_app
         with:
           releaseDirectory: ./app/build/outputs/apk/demo/debug/
