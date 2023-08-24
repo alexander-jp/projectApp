@@ -35,7 +35,7 @@ jobs:
       - name: obtener path
         run: ls -a ./app/build/outputs/apk/demo/debug/
       - name: version signer
-        run: pksigner --version
+        run: apksigner --version
 
       - uses: r0adkll/sign-android-release@v1
         name: Sign app APK
