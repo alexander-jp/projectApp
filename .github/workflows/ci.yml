@@ -32,6 +32,12 @@ jobs:
       - name: List apksigner version
         run: apksigner --version
 
+      - name: Debug Environment
+        run: |
+          echo "PATH: $PATH"
+          echo "ANDROID_HOME: $ANDROID_HOME"
+          echo "JAVA_HOME: $JAVA_HOME"
+
       - name: Setup Gradle
         uses: gradle/gradle-build-action@v2
         
